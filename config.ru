@@ -16,12 +16,18 @@ class Application
     # /search?name=<anything else>
     # respond with 'I dont know that person'
 
-    binding.pry
 
     if req.path == '/'
       resp.write('Welcome')
     elsif req.path == '/about'
       resp.write('This is a web application')
+    elsif req.path == '/search'
+      database = ['es', 'jason']
+      if database.include?(req.params['name'])
+        resp.write("Hey #{req.params['name']}")
+      else
+        resp.write('I dont know this person')
+      end
     else
       resp.status = 404
       resp.write('404 resource could not be found')
